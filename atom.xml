@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[nishimura.dev.blog]]></title>
+    <link href="/atom.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2021-02-06T22:57:19+00:00</updated>
+    <id>/</id>
+        <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Chartjs Gradient Background]]></title>
+            <link href="/blog/2021/02/06/chartjs-gradient-background/"/>
+            <updated>2021-02-06T00:00:00+00:00</updated>
+            <id>/blog/2021/02/06/chartjs-gradient-background/</id>
+            <content type="html"><![CDATA[<p><img src="/images/chartjs_gradient_bg.png" alt="Chartjs gradient background" /></p>
+
+<p>How to add a gradient background for the entire <a href="https://www.chartjs.org/">Chart.js</a> and not just for the dataset, that was my first question when I started to play with it, so here I am...</p>
+
+<h3 id="chart-plugins">Chart Plugins</h3>
+
+<p><a href="https://www.chartjs.org/docs/latest/developers/plugins.html">Plugins</a> are the most efficient way to customize or change the default behavior of a chart. They have been introduced at version 2.1.0 (global plugins only) and extended at version 2.5.0 (per chart plugins and options).</p>
+
+<p>With a custom plugin we can draw a custom background implementing the function "beforeDraw".</p>
+
+<p>The following plugin draws a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient">custom gradient</a> in the chart background:</p>
+
+<pre><code>    var GradientBgPlugin = {
+        beforeDraw: function (chartInstance) {
+            const ctx = chartInstance.chart.ctx;
+            const canvas = chartInstance.chart.canvas;
+            const chartArea = chartInstance.chartArea;
+
+            // Chart background
+            var gradientBack = canvas.getContext("2d").createLinearGradient(0, 0, 0, 300);
+            gradientBack.addColorStop(0, "rgba(0, 255,0, 0.3)");
+            gradientBack.addColorStop(0.5, "rgba(255, 255, 255, 0)");
+            gradientBack.addColorStop(1, "rgba(255, 0, 0, 0.3)");
+
+            ctx.fillStyle = gradientBack;
+            ctx.fillRect(chartArea.left, chartArea.bottom,
+                        chartArea.right - chartArea.left, chartArea.top - chartArea.bottom);
+        }
+    };
+</code></pre>
+
+<p>Then insert the custom plugin in the Chart configuration and voilà:</p>
+
+<script async src="//jsfiddle.net/ricnish/6284o57q/16/embed/js,html,result/"></script>
+]]></content>
+        </entry>
+    </feed>

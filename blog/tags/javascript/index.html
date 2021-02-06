@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head lang="en">
-        <title>Home &mdash; nishimura.dev.blog &mdash; Memories fade</title>
+        <title>Tag Archive "javascript" &mdash; nishimura.dev.blog &mdash; Memories fade</title>
         <meta charset="utf-8">
         <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                    <meta name="robots" content="noindex, follow">
-                <link rel="stylesheet" href="/build/app.css">
+            <link rel="alternate" type="application/atom+xml" href="/blog/tags/javascript.xml" title="nishimura.dev.blog 'javascript' tag feed" />
+    <meta name="robots" content="noindex, follow">
+        <link rel="stylesheet" href="/build/app.css">
 
         <link rel="apple-touch-startup-image" href="/build/192x192.png">
         <meta name="mobile-web-app-capable" content="yes">
@@ -40,51 +41,14 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-sm-8">
-                        <article>
-        <header>
-            <h2><a href="/blog/2021/02/06/chartjs-gradient-background/">Chartjs Gradient Background</a></h2>
-        </header>
-        <div>
-            <p><img src="/images/chartjs_gradient_bg.png" alt="Chartjs gradient background" /></p>
+                    <h2>"javascript"</h2>
+        <h3>February 2021</h3>
+<article>
+  <div><a href="/blog/2021/02/06/chartjs-gradient-background/">Chartjs Gradient Background</a></div>
+</article>
 
-<p>How to add a gradient background for the entire <a href="https://www.chartjs.org/">Chart.js</a> and not just for the dataset, that was my first question when I started to play with it, so here I am...</p>
-
-<h3 id="chart-plugins">Chart Plugins</h3>
-
-<p><a href="https://www.chartjs.org/docs/latest/developers/plugins.html">Plugins</a> are the most efficient way to customize or change the default behavior of a chart. They have been introduced at version 2.1.0 (global plugins only) and extended at version 2.5.0 (per chart plugins and options).</p>
-
-<p>With a custom plugin we can draw a custom background implementing the function "beforeDraw".</p>
-
-<p>The following plugin draws a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient">custom gradient</a> in the chart background:</p>
-
-<pre><code>    var GradientBgPlugin = {
-        beforeDraw: function (chartInstance) {
-            const ctx = chartInstance.chart.ctx;
-            const canvas = chartInstance.chart.canvas;
-            const chartArea = chartInstance.chartArea;
-
-            // Chart background
-            var gradientBack = canvas.getContext("2d").createLinearGradient(0, 0, 0, 300);
-            gradientBack.addColorStop(0, "rgba(0, 255,0, 0.3)");
-            gradientBack.addColorStop(0.5, "rgba(255, 255, 255, 0)");
-            gradientBack.addColorStop(1, "rgba(255, 0, 0, 0.3)");
-
-            ctx.fillStyle = gradientBack;
-            ctx.fillRect(chartArea.left, chartArea.bottom,
-                        chartArea.right - chartArea.left, chartArea.top - chartArea.bottom);
-        }
-    };
-</code></pre>
-
-<p>Then insert the custom plugin in the Chart configuration and voilà:</p>
-
-<script async src="//jsfiddle.net/ricnish/6284o57q/16/embed/js,html,result/"></script>
-
-        </div>
-                    <p class="tags">
-            Tags:
-                        <a href="/blog/tags/chartjs">chartjs</a>,                         <a href="/blog/tags/javascript">javascript</a>,                         <a href="/blog/tags/tips">tips</a>                        </p>
-            </article>
+<div>
+</div>
                 </div>
                 <div class="col-sm-4 sidebar">
                     <div class="card bg-light">
