@@ -3,9 +3,52 @@
     <title><![CDATA[nishimura.dev.blog]]></title>
     <link href="/blog/tags/chartjs.xml" rel="self"/>
     <link href="/"/>
-    <updated>2021-02-06T22:57:19+00:00</updated>
+    <updated>2021-02-07T21:16:37+00:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Chartjs Point with Vertical Line]]></title>
+            <link href="/blog/2021/02/07/chartjs-point-with-vertical/"/>
+            <updated>2021-02-07T00:00:00+00:00</updated>
+            <id>/blog/2021/02/07/chartjs-point-with-vertical/</id>
+            <content type="html"><![CDATA[<p><img src="/images/chartjs_point_vertical.png" alt="Chartjs point with vertical line" /></p>
+
+<p>In my journey to adapt <a href="https://www.chartjs.org/">Chart.js</a> to fit some of my requirements, I had to draw some points of interest in a line chart and draw a vertical line to the baseline.</p>
+
+<p>The <a href="https://www.chartjs.org/docs/latest/developers/plugins.html">Chartjs plugin system</a> came to my rescue again (<a href="blog/2021/02/06/chartjs-gradient-background/">see my previous post</a>).</p>
+
+<p>Plugins are the most efficient way to customize or change the default behavior of a chart, but there are not so many examples out there, so I am bringing another one.</p>
+
+<p>In this line chart I am using a dataset type "scatter" to draw some points of interest in the line dataset, then for these specific point I wish to draw a vertical line from the scatter point to the chart base.</p>
+
+<p>To perform this task, I created the following plugin to implement the hook "afterDatasetDraw" and draw a vertical line if the dataset is "scatter" type:</p>
+
+<pre><code>    var VerticalLinePlugin = {
+        afterDatasetDraw: function (chart, params) {
+            // Only draw after animation has finished and is the desired dataset
+            if(params.easingValue == 1 &amp;&amp; params.meta.type == "scatter") {
+                var ctx = chart.ctx;
+                ctx.save();
+                params.meta.data.forEach(point =&gt; {
+                    var model = point._model;
+                    ctx.strokeStyle = point._options.borderColor;
+                    ctx.lineWidth = point._options.borderWidth;
+                    ctx.beginPath();
+                    ctx.moveTo(model.x, model.y);
+                    ctx.lineTo(model.x, chart.chartArea.bottom);
+                    ctx.stroke();
+                });
+                ctx.restore();
+            }
+        }
+    };
+</code></pre>
+
+<p>Insert the custom plugin in the Chart configuration to make it work:</p>
+
+<script async src="//jsfiddle.net/ricnish/fLb1st2z/4/embed/js,html,result/"></script>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Chartjs Gradient Background]]></title>
             <link href="/blog/2021/02/06/chartjs-gradient-background/"/>
